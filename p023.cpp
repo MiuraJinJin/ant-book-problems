@@ -4,13 +4,13 @@
 using namespace std;
 
 // P.23 Ants
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
   bool is_debug = string(argv[0]) == "./test.out";
 
   int L, N;
   cin >> L >> N;
   vector<int> X;
-  for (int i=0;i<N;i++) {
+  for (int i = 0; i < N; i++) {
     int x;
     cin >> x;
     X.push_back(x);
