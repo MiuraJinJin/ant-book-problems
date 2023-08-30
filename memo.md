@@ -5,7 +5,7 @@
     - char: ""
     - bool: false
 - vectorの初期化について
-  - vector<int> vec; // 要素3個のvectorになる
+  - vector<int> vec; // 要素0個のvectorになる
   - vector<int> vec(3); // [0, 0, 0]
   - vector<int> vec(3, 5); // [5, 5, 5]
   - vector<bool> vec(3); // [false, false, false]
