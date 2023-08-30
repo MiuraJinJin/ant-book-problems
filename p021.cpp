@@ -3,28 +3,21 @@
 
 using namespace std;
 
-// P.8 くじびき O(N^2)解
+// P.021 三角形
 int main(int argc, char* argv[]) {
   bool is_debug = string(argv[0]) == "./test.out";
 
-  int N, M;
-  cin >> N >> M;
-  vector<int> K;
+  int N;
+  cin >> N;
+  vector<int> A;
   for (int i = 0; i < N; i++) {
-    int k;
-    cin >> k;
-    K.push_back(k);
+    int a;
+    cin >> a;
+    A.push_back(a);
   }
-
-  set<int> st;
-  for (int a : K) {
-    for (int b : K) {
-      st.insert(a + b);
-    }
+  int ans = 0;
+  for (int i = 0; i < N - 2; i++) for (int j = i + 1; j < N - 1; j++) for (int k = j + 1; k < N; k++) {
+    if (A[i] < A[j] + A[k] && A[j] < A[i] + A[k] && A[k] < A[i] + A[j]) ans = max(ans, A[i] + A[j] + A[k]);
   }
-
-  bool is_existent = false;
-  for (int a : st) if (st.contains(M - a)) is_existent = true;
-
-  cout << (is_existent ? "Yes" : "No") << endl;
+  cout << ans << endl;
 }
