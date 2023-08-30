@@ -9,3 +9,13 @@
   - vector<int> vec(3); // [0, 0, 0]
   - vector<int> vec(3, 5); // [5, 5, 5]
   - vector<bool> vec(3); // [false, false, false]
+- 二次元配列の初期化
+  - long long array[2][3]; // 全ての要素が0で初期化される
+  - fill((long long*) array, (long long*) (array + N), 1e18); // 全ての要素が1e18で初期化される
+
+### その他
+- vector::resize関数が使えそう
+```
+vector<int> vec(3); // [0, 0, 0]
+vec.resize(5); // [0, 0, 0, 0, 0]
+```
