@@ -3,7 +3,7 @@
 
 using namespace std;
 
-// P.008 くじびき O(N^2)解
+// P.008 くじびき O(N^2logN)解
 int main(int argc, char* argv[]) {
   bool is_debug = string(argv[0]) == "./test.out";
 
