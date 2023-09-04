@@ -30,7 +30,8 @@ int main(int argc, char* argv[]) {
       int w = items[i - 1].first, v = items[i - 1].second;
       int now = dp[i - 1][j];
       if (j >= w) {
-        if (dp[i - 1][j - w] != -1e9) now = max(now, dp[i - 1][j - w] + v);
+        // このスライドはもう1つのスライドで賄えるので必要ない
+        // if (dp[i - 1][j - w] != -1e9) now = max(now, dp[i - 1][j - w] + v);
         if (dp[i][j - w] != -1e9) now = max(now, dp[i][j - w] + v);
       }
       dp[i][j] = now;
