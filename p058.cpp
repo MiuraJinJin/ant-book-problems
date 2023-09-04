@@ -39,7 +39,7 @@ int main(int argc, char* argv[]) {
 
   if (is_debug) {
     for (int i = 0; i <= N; i++) {
-      for (int j = 0; j < W; j++) {
+      for (int j = 0; j <= W; j++) {
         cout << dp[i][j] << ' ';
       }
       cout << endl;
