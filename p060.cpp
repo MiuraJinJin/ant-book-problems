@@ -5,6 +5,8 @@ using namespace std;
 
 // dp[i][j] i: itemsを見た数, j: 価値, value: i,jで達成可能な最小の重さ
 int dp[101][10001];
+
+// P.60 01ナップサック問題その２
 int main(int argc, char *argv[]) {
   bool is_debug = string(argv[0]) == "./test.out";
 
