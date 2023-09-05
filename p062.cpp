@@ -50,5 +50,5 @@ int main(int argc, char* argv[]) {
     }
   }
 
-  cout << ((dp[N][K] >= 0 ? "Yes" : "No")) << endl;
+  cout << (dp[N][K] >= 0 ? "Yes" : "No") << endl;
 }
