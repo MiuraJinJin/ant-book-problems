@@ -23,10 +23,6 @@ int main(int argc, char* argv[]) {
     cin >> m;
     M.push_back(m);
   }
-
-  vector<pair<int, int>> numbers;
-  for (int i = 0; i < N; i++) numbers.push_back({ A[i], M[i] });
-
   int K;
   cin >> K;
 
@@ -34,7 +30,7 @@ int main(int argc, char* argv[]) {
   dp[0][0] = 0;
 
   for (int i = 1; i <= N; i++) {
-    int a = numbers[i - 1].first, m = numbers[i - 1].second;
+    int a = A[i - 1], m = M[i - 1];
     for (int j = 0; j <= K; j++) {
       if (dp[i - 1][j] >= 0) dp[i][j] = m;
       if (dp[i][j - a] >= 0) dp[i][j] = dp[i][j - a] - 1;
