@@ -29,7 +29,7 @@ int main(int argc, char* argv[]) {
     bool is_updated = false;
     for (int u = 0; u < N; u++) for (pair<int, int> p : path[u]) {
       int v = p.first, c = p.second;
-      if (u != 1e9 && dist[u] + c < dist[v]) {
+      if (dist[u] != 1e9 && dist[u] + c < dist[v]) {
         dist[v] = dist[u] + c;
         is_updated = true;
       }
