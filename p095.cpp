@@ -7,7 +7,7 @@ using namespace atcoder;
 vector<pair<int, int>> path[1001];
 
 // P.95 ベルマンフォード法
-// N回全ての辺について更新確認をするダイクストラ
+// N回全ての辺について更新確認をする(既出チェックがない)ダイクストラ
 // 閉路の検出が可能
 int main(int argc, char* argv[]) {
   bool is_debug = string(argv[0]) == "./test.out";
