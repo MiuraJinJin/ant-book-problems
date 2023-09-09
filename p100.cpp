@@ -49,8 +49,10 @@ int main(int argc, char* argv[]) {
     }
   }
 
-  if (is_debug) for (int i = 0; i < N; i++) cout << dist[i] << ' ';
-  cout << endl;
+  if (is_debug) {
+    for (int i = 0; i < N; i++) cout << dist[i] << ' ';
+    cout << endl;
+  }
 
   cout << ans << endl;
 }
