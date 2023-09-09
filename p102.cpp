@@ -37,7 +37,7 @@ int main(int argc, char* argv[]) {
         dist[v][0] = c2;
         que.push({ c2, v });
       }
-      else if (c2 < dist[v][1]) {
+      else if (dist[v][0] < c2 && c2 < dist[v][1]) {
         dist[v][1] = c2;
         que.push({ c2, v });
       }
