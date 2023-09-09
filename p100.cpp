@@ -20,6 +20,7 @@ int main(int argc, char* argv[]) {
   }
 
   dsu uf(N);
+
   int ans = 0;
 
   while (!path.empty()) {
