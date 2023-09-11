@@ -7,7 +7,7 @@ using namespace atcoder;
 vector<pair<int, int>> path[1001];
 int dist[1001];
 
-// P.104 Layout
+// P.104 Layout(ベルマンフォード)
 // 不等式をグラフに落とし込む問題
 // dist[u], dist[v], edge(u -> v): wがある時にdist[v] <= dist[u] + w
 // が成り立つことを利用する
