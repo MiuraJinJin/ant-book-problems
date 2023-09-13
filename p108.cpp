@@ -18,7 +18,7 @@ int ext_euclid(int a, int b, int& x, int& y) {
     return a;
   }
   int d = ext_euclid(b, a % b, y, x);
-  y -= (a / b) * x;
+  y -= (a / b) * x; // (a / b) は a = qb + r (r = a % b)とした時のq
   if (is_debug) cout << "return: " <<  a << ' ' << b << ' ' << x << ' ' << y << ' ' << d << endl;
   return d;
 }
