@@ -27,14 +27,20 @@ int main(int argc, char* argv[]) {
     return 0;
   }
   for (int i = 2; i < N; i++) {
-    int bit = N;
-    long long n = 1, pw = i;
-    while (bit) {
-      if (bit & 1) n = (n * pw) % N;
-      pw = (pw * pw) % N;
-      bit >>= 1;
-    }
-    if (is_debug) cout << i << ' ' << n << ' ' << pw << ' ' << bit << endl;
+    // int bit = N;
+    // long long n = 1, pw = i;
+    // while (bit) {
+    //   if (bit & 1) n = (n * pw) % N;
+    //   pw = (pw * pw) % N;
+    //   bit >>= 1;
+    // }
+    // if (is_debug) cout << i << ' ' << n << ' ' << pw << ' ' << bit << endl;
+
+    modint::set_mod(N);
+    modint mi = i;
+    int n = mi.pow(N).val();
+    if (is_debug) cout << n << endl;
+
     if (n != i) {
       cout << "No" << endl;
       return 0;
