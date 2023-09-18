@@ -29,4 +29,14 @@ vec.resize(5); // [0, 0, 0, 0, 0]
   - lower_boundの戻り値はポインタを返す
 - lower_boundは同一の値が続く場合一番左の位置のポインタを返す
   - A = { 1, 2, 2, 3 }; で2を検索する場合A[1]が返る
+- lower_boundはマッチする値がない場合上側に張り付く
+  - A = { 1, 5, 6, 7 }; で3を検索する場合1ではなく**5**のポインタが返る
+    - 1を返したい場合*(--upper_bound(A.begin(), A.end(), 3))とすれば良い
+      - *(upper_bound(A.begin(), A.end(), 3)--)だとうまくいきません
+        - 1.無名ポインタ=upper_bound(A.begin(), A.end(), 3)
+        - 2.*(無名ポインタ)
+        - 3.無名ポインタ - 1
+        - という順に解釈されそうです
 - map::contains(x)ですでにxがキーの値が格納されているかをチェックできる
+- mapのキーでもlower_bound, upper_bound可能
+  - map::lower_bound(key)を用いる

@@ -5,7 +5,7 @@ using namespace std;
 using namespace atcoder;
 bool is_debug;
 
-
+// P.119 Crazy Rows(バブルソートっぽいやつ)
 int main(int argc, char* argv[]) {
   is_debug = string(argv[0]) == "./test.out";
 
