@@ -6,6 +6,12 @@ using namespace atcoder;
 typedef long long ll;
 bool is_debug;
 
+// P.123 Millionaire
+// mapのアクセスおよびupper_boundがO(logN)になるため
+// O(M4^MlogN)程度のアクセス回数になりM=15の条件では実行時間が非常にかかる
+// ※4^Mは2^M*2^Mから
+// そのためlogNを外すために予めdp[1<<M+1]の配列を作りupper_boundを使わずに
+// 前回の結果にインデックスアクセスできるようにするとO(M4^M)まで抑えることができる
 int main(int argc, char* argv[]) {
   is_debug = string(argv[0]) == "./test.out";
 
@@ -28,9 +34,11 @@ int main(int argc, char* argv[]) {
     double unit = OK_VALUE / (1 << i);
     for (int j = 1; j < 1 << i; j++) {
       for (int k = 0; k <= j; k++) {
-        double p1 = (--mp.upper_bound(min(OK_VALUE, j * unit + k * unit)))->second * P;
-        double p2 = (--mp.upper_bound(max(0.0, j * unit - k * unit)))->second * (1 - P);
+        double p1 = (--mp.upper_bound(j * unit + k * unit))->second * P;
+        double p2 = (--mp.upper_bound(j * unit - k * unit))->second * (1 - P);
         new_mp[j * unit] = max(new_mp[j * unit], p1 + p2);
+        // 勝てばOK_VALUEを超える額を賭けた場合それ以上を賭ける必要がないためbreak
+        if (OK_VALUE < j * unit + k * unit) break;
       }
     }
     mp = new_mp;
