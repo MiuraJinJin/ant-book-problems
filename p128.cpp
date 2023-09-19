@@ -6,6 +6,7 @@ using namespace atcoder;
 typedef long long ll;
 bool is_debug;
 
+// 二分探索は最終的にokとngの境界までわかる
 int lower_bound(vector<int> A, int X) {
 
   int ng = -1, ok = A.size();
@@ -17,6 +18,7 @@ int lower_bound(vector<int> A, int X) {
   return ok;
 }
 
+// P.128 lower_bound
 int main(int argc, char* argv[]) {
   is_debug = string(argv[0]) == "./test.out";
 
@@ -32,5 +34,5 @@ int main(int argc, char* argv[]) {
   int K;
   cin >> K;
 
-  cout << lower_bound(A, K)<< endl;
+  cout << lower_bound(A, K) << endl;
 }
