@@ -66,8 +66,8 @@ int main(int argc, char* argv[]) {
       ll candi_w = 0, candi_v = 0;
       for (int i = 0; i < B; i++) {
         if ((bit >> i) & 1) {
-          candi_w += items[i].first;
-          candi_v += items[i].second;
+          candi_w += items[A + i].first;
+          candi_v += items[A + i].second;
         }
       }
       if (candi_w <= W) {
