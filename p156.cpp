@@ -40,7 +40,7 @@ int main(int argc, char* argv[]) {
     double y = ya + si * xb + cs * yb;
     }, []() { return 1e18; }> seg(N);
 
-
-
-    cout << ans << endl;
+  for (int c = 0; c < C; c++) {
+    
+  }
 }
