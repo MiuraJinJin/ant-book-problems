@@ -25,11 +25,8 @@ int main(int argc, char* argv[]) {
   for (int i = 0; i < C; i++) {
     int x;
     cin >> x;
-    A.push_back(x);
+    A.push_back(x - 90);
   }
-
-  vector<double> rads(N - 1, M_PI);
-  double now = accumulate(L.begin(), L.end(), 0);
 
   typedef tuple<double, double, double> tp;
   segtree <tp, [](tp& a, tp& b) {
@@ -38,9 +35,18 @@ int main(int argc, char* argv[]) {
     double si = sin(ra), cs = cos(ra);
     double x = xa + cs * xb - si * yb;
     double y = ya + si * xb + cs * yb;
-    }, []() { return 1e18; }> seg(N);
+    }, []() { return tp { 0.0, 0.0, M_PI / 2.0 }; }> seg(N);
+
+  for (int i = 0; i < N; i++) {
+    seg.set(i, tp { 0.0, (double) L[i], M_PI / 2.0 });
+  }
 
   for (int c = 0; c < C; c++) {
-    
+    int s = S[c];
+    double a = (double) A[c] * M_PI / 180.0;
+    double l = L[c];
+    seg.set(s, tp { l, l, a });
+    auto [x, y, _] = seg.all_prod();
+    cout << x << ' ' << y << endl;
   }
 }
