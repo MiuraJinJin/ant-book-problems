@@ -27,4 +27,14 @@ int main(int argc, char* argv[]) {
     bit.add(a - 1, 1);
   }
   cout << ans << endl;
+
+  if (is_debug) {
+    ans = 0;
+    segtree<ll, [](ll a, ll b) { return a + b; }, []() { return 0LL; }> seg(N);
+    for (int a : A) {
+      ans += seg.prod(a - 1, N);
+      seg.set(a - 1, 1LL);
+    }
+    cout << ans << endl;
+  }
 }
