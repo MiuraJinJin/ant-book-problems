@@ -9,21 +9,35 @@ bool is_debug;
 int main(int argc, char* argv[]) {
   is_debug = string(argv[0]) == "./test.out";
 
+  struct S { ll value; int size; };
+  using F = ll;
+
+  int N;
+  cin >> N;
+  vector<S> A;
+  for (int i = 0; i < N; i++) {
+    int a;
+    cin >> a;
+    A.push_back({ a, 1 });
+  }
+
   int Q;
   cin >> Q;
 
-  struct S { ll value; int size; };
-  using F = ll;
   lazy_segtree<S, [](S a, S b) { return S{ a.value + b.value, a.size + b.size }; }, []() { return S{ 0, 0 }; },
-               F, [](F f, S x) { return S{ x.value + x.size * f, x.size }; }, [](F f, F g) { return f + g; }
-               []() { return 0; }> seg(vector<S>(N, S{ 0, 1 });
+               F, [](F f, S x) { return S{ x.value + x.size * f, x.size }; }, [](F f, F g) { return f + g; },
+               []() { return 0; }> seg(A);
   for (int q = 0; q < Q; q++) {
-    int qe, l, r, x;
-    cin >> qe >> l >> r >> x;
+    int qe;
+    cin >> qe;
     if (qe == 1) {
-      seg.apply(l, r, x);
+      int l, r, x;
+      cin >> l >> r >> x;
+      seg.apply(--l, r, x);
     } else {
-      cout << seg.prod(l, r).value << endl;
+      int l, r;
+      cin >> l >> r;
+      cout << seg.prod(--l, r).value << endl;
     }
   }
 }
