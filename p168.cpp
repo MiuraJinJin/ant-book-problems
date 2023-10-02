@@ -18,11 +18,10 @@ int main(int argc, char* argv[]) {
     A.push_back(a);
   }
 
-  int n = sqrt(N);
-
-  vector<vector<ll>> sp(1, vector<ll>());
+  int bucket_length = 2;
+  vector<vector<ll>> sp(1);
   for (ll a : A) {
-    if (sp.back().size() == n) sp.push_back(vector<ll>());
+    if (sp.back().size() == bucket_length) sp.push_back(vector<ll>());
     sp.back().push_back(a);
   }
 
@@ -39,30 +38,37 @@ int main(int argc, char* argv[]) {
   for (int i = 0; i < M; i++) {
     ll a, b, k;
     cin >> a >> b >> k;
+    a--;
     ll ok = N - 1, ng = -1;
     while (ok - ng > 1) {
       ll mid = (ok + ng) / 2;
       ll sp_start = -1, sp_end = -1;
-      for (int i = 0; i * n < N; i++) {
-        if (sp_start == -1 && i * n >= a) sp_start = i;
-        if (sp_end == -1 && i * n >= b) sp_end = i;
+      int i = 0;
+      for (; i * bucket_length < N; i++) {
+        if (sp_start == -1 && i * bucket_length >= a) sp_start = i;
+        if (sp_end == -1 && i * bucket_length >= b) sp_end = i;
       }
-      int wk = 0;
-      for (int i = a; i < sp_start * n; i++) if (sorted_A[mid] >= A[i]) wk++;
-      for (int i = (sp_end - 1) * n; i < b; i++) if (sorted_A[mid] >= A[i]) wk++;
+      if (sp_start == -1) sp_start = i;
+      if (sp_end == -1) sp_end = i;
 
-      for (int i = sp_start; i < sp_end; i++) {
-        wk += upper_bound(sp_sorted[i].begin(), sp_sorted[i].end(), sorted_A[mid]) - sp_sorted[i].begin();
+      int wk = 0;
+      if (sp_start == sp_end) {
+        for (int i = a; i < b; i++) if (sorted_A[mid] >= A[i]) wk++;
+      }
+      else {
+        for (int i = a; i < sp_start * bucket_length && i < N; i++) if (sorted_A[mid] >= A[i]) wk++;
+        for (int i = (sp_end - 1) * bucket_length; i < b; i++) if (sorted_A[mid] >= A[i]) wk++;
+
+        for (int i = sp_start; i < sp_end - 1; i++) {
+          wk += upper_bound(sp_sorted[i].begin(), sp_sorted[i].end(), sorted_A[mid]) - sp_sorted[i].begin();
+        }
         if (is_debug) {
-          cout << upper_bound(sp_sorted[i].begin(), sp_sorted[i].end(), sorted_A[mid]) - sp_sorted[i].begin() << endl;
+          cout << sorted_A[mid] << ':' << wk << ':' << ok << ':' << ng << endl;
         }
       }
-      if (is_debug) {
-        cout << wk << ' ' << ok << ' ' << ng << endl;
-      }
-      if (wk > k) ng = mid;
-      else ok = mid;
+      if (wk >= k) ok = mid;
+      else ng = mid;
     }
-    cout << ok << endl;
+    cout << sorted_A[ok] << endl;
   }
 }
