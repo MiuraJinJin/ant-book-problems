@@ -14,7 +14,7 @@ int main(int argc, char* argv[]) {
 
   int N, M;
   cin >> N >> M;
-  for (int _ = 0; _ < M; _++) {
+  for (int m = 0; m < M; m++) {
     int i, j, d;
     cin >> i >> j >> d;
     D[i].push_back({ j, d });
