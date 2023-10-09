@@ -21,22 +21,44 @@ int main(int argc, char* argv[]) {
     for (int j = 0; j < M; j++) S[i][j] = s[j];
   }
 
-  mint dp[N][M + 1][1 << M];
+  mint dp[N + 1][M][1 << M];
   fill((mint*) dp, (mint*) (dp + N), (mint) 0);
   dp[0][0][0] = 1;
   for (int i = 0; i < N; i++) {
     for (int j = 0; j < M; j++) {
       if (S[i][j] == 'x') continue;
-      for (int k = 0; k < (1 << M); k++) {
+      for (int bit = 0; bit < (1 << M); bit++) {
         // すでに塗られている場合スキップ
-        if (k & 1) continue;
+        if (bit & 1) {
+          if (j < M - 1) {
+            dp[i][j + 1][bit >> 1] += dp[i][j][bit];
+          } else {
+            dp[i + 1][0][bit >> 1] += dp[i][j][bit];
+          }
+          continue;
+        }
         // 横
-        if (j + 1 < M - 1) {
-
+        if (j + 1 < M - 1 && (bit >> 1 & 1) == 0) {
+          dp[i][j + 1][bit >> 1 | 1] += dp[i][j][bit];
         }
         // 縦
+        if (j + 1 < N - 1) {
+          if (j < M - 1) {
+            dp[i][j + 1][bit >> 1 | 1 << M] += dp[i][j][bit];
+          } else {
+            dp[i + 1][0][bit >> 1 | 1 << M] += dp[i][j][bit];
+          }
+        }
+      }
+      if (is_debug) {
+        cout << i << ',' << j << endl;
+        for (int bit = 0; bit < 1 << M; bit++) {
+          // if (dp[i][j][bit] != mint(0))
+            cout << bit << ':' << dp[i][j][bit].val() << ' ';
+        }
+        cout << endl;
       }
     }
   }
-  
+  cout << dp[N + 1][0][0].val() << endl;
 }
