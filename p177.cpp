@@ -26,10 +26,9 @@ int main(int argc, char* argv[]) {
   dp[0][0][0] = 1;
   for (int i = 0; i < N; i++) {
     for (int j = 0; j < M; j++) {
-      if (S[i][j] == 'x') continue;
       for (int bit = 0; bit < (1 << M); bit++) {
         // すでに塗られている場合スキップ
-        if (bit & 1) {
+        if (bit & 1 || S[i][j] == 'x') {
           if (j < M - 1) {
             dp[i][j + 1][bit >> 1] += dp[i][j][bit];
           } else {
@@ -38,11 +37,11 @@ int main(int argc, char* argv[]) {
           continue;
         }
         // 横
-        if (j + 1 < M - 1 && (bit >> 1 & 1) == 0) {
+        if (j + 1 < M - 1 && S[i][j + 1] != 'x' && (bit >> 1 & 1) == 0) {
           dp[i][j + 1][bit >> 1 | 1] += dp[i][j][bit];
         }
         // 縦
-        if (j + 1 < N - 1) {
+        if (i + 1 < N - 1 && S[i + 1][j] != 'x') {
           if (j < M - 1) {
             dp[i][j + 1][bit >> 1 | 1 << M] += dp[i][j][bit];
           } else {
@@ -53,8 +52,7 @@ int main(int argc, char* argv[]) {
       if (is_debug) {
         cout << i << ',' << j << endl;
         for (int bit = 0; bit < 1 << M; bit++) {
-          // if (dp[i][j][bit] != mint(0))
-            cout << bit << ':' << dp[i][j][bit].val() << ' ';
+          cout << bit << ':' << dp[i][j][bit].val() << ' ';
         }
         cout << endl;
       }
