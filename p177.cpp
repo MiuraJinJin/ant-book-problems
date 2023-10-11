@@ -22,33 +22,10 @@ int main(int argc, char* argv[]) {
   }
 
   mint dp[N + 1][M][1 << M];
-  fill((mint*) dp, (mint*) (dp + N), (mint) 0);
+  fill((mint*) dp, (mint*) (dp + N + 1), (mint) 0);
   dp[0][0][0] = 1;
   for (int i = 0; i < N; i++) {
     for (int j = 0; j < M; j++) {
-      for (int bit = 0; bit < (1 << M); bit++) {
-        // すでに塗られている場合スキップ
-        if (bit & 1 || S[i][j] == 'x') {
-          if (j < M - 1) {
-            dp[i][j + 1][bit >> 1] += dp[i][j][bit];
-          } else {
-            dp[i + 1][0][bit >> 1] += dp[i][j][bit];
-          }
-          continue;
-        }
-        // 横
-        if (j + 1 < M - 1 && S[i][j + 1] != 'x' && (bit >> 1 & 1) == 0) {
-          dp[i][j + 1][bit >> 1 | 1] += dp[i][j][bit];
-        }
-        // 縦
-        if (i + 1 < N - 1 && S[i + 1][j] != 'x') {
-          if (j < M - 1) {
-            dp[i][j + 1][bit >> 1 | 1 << M] += dp[i][j][bit];
-          } else {
-            dp[i + 1][0][bit >> 1 | 1 << M] += dp[i][j][bit];
-          }
-        }
-      }
       if (is_debug) {
         cout << i << ',' << j << endl;
         for (int bit = 0; bit < 1 << M; bit++) {
@@ -56,7 +33,30 @@ int main(int argc, char* argv[]) {
         }
         cout << endl;
       }
+      for (int bit = 0; bit < 1 << M; bit++) {
+        // すでに塗られている場合スキップ
+        if (bit & 1 || S[i][j] == 'x') {
+          if (j + 1 < M) {
+            dp[i][j + 1][bit >> 1] += dp[i][j][bit];
+          } else {
+            dp[i + 1][0][bit >> 1] += dp[i][j][bit];
+          }
+          continue;
+        }
+        // 横
+        if (j + 1 < M && S[i][j + 1] != 'x' && (bit >> 1 & 1) == 0) {
+          dp[i][j + 1][bit >> 1 | 1] += dp[i][j][bit];
+        }
+        // 縦
+        if (i + 1 < N && S[i + 1][j] != 'x') {
+          if (j + 1 < M) {
+            dp[i][j + 1][bit >> 1 | 1 << (M - 1)] += dp[i][j][bit];
+          } else {
+            dp[i + 1][0][bit >> 1 | 1 << (M - 1)] += dp[i][j][bit];
+          }
+        }
+      }
     }
   }
-  cout << dp[N + 1][0][0].val() << endl;
+  cout << dp[N][0][0].val() << endl;
 }
