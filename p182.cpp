@@ -35,8 +35,6 @@ int main(int argc, char* argv[]) {
       memo_even[2 * n] = memo_even[n] * memo_even[n] + memo_odd[n] * memo_odd[n];
     }
     else {
-
     }
   }
-  
 }
