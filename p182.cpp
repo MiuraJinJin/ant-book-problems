@@ -12,10 +12,4 @@ int main(int argc, char* argv[]) {
 
   int N;
   cin >> N;
-
-  set<ll> num;
-  while (N != 0) {
-    num.insert(N);
-    N >>= 1;
-  }
 }
